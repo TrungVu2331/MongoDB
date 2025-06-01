@@ -18,25 +18,34 @@ app.post('/tinh-doanh-thu', async (req, res) => {
   const result = [];
 
   for (const month of months) {
+    const startOfMonth = new Date(`2025-${month.toString().padStart(2, '0')}-01`);
+    const startOfNextMonth = new Date(`2025-${(month + 1).toString().padStart(2, '0')}-01`);
+
     const bookings = await dbDatPhong.collection('ThongTin').find({
-      checkIn: {
-        $gte: new Date(`2025-${month.toString().padStart(2, '0')}-01`),
-        $lt: new Date(`2025-${(month + 1).toString().padStart(2, '0')}-01`)
-      },
-      status: 'confirmed'
+      status: 'confirmed',
+      $expr: {
+        $and: [
+          { $lt: ["$checkIn", startOfNextMonth] },
+          { $gte: ["$checkOut", startOfMonth] }
+        ]
+      }
     }).toArray();
 
     let total = 0;
     for (const b of bookings) {
       const room = await dbPhong.collection('Phong').findOne({ _id: b.roomId });
-      const days = (new Date(b.checkOut) - new Date(b.checkIn)) / (1000 * 60 * 60 * 24);
-      total += (room?.pricePerNight || 0) * days;
+      if (!room) continue;
+
+      const actualCheckIn = b.checkIn < startOfMonth ? startOfMonth : b.checkIn;
+      const actualCheckOut = b.checkOut > startOfNextMonth ? startOfNextMonth : b.checkOut;
+
+      const days = (actualCheckOut - actualCheckIn) / (1000 * 60 * 60 * 24);
+      total += room.pricePerNight * days;
     }
 
     result.push({ month, total });
   }
 
-  // Ghi vào admin.DoanhThu
   for (const r of result) {
     await dbAdmin.collection('DoanhThu').updateOne(
       { month: r.month },
