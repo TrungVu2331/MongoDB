@@ -1,4 +1,4 @@
-const newCheckIn = ISODate("2025-06-10T14:00:00Z");
+const newCheckIn = ISODate("2025-03-05T14:00:00Z");
 const newCheckOut = ISODate("2025-06-15T12:00:00Z");
 
 const availableRooms = db.getSiblingDB("Phong").Phong.aggregate([

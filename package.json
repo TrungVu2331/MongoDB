@@ -5,11 +5,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "mongodb": "^6.16.0"
-  }
+    "axios": "^1.9.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0",
+    "node-fetch": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrungVu2331/MongoDB.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TrungVu2331/MongoDB/issues"
+  },
+  "homepage": "https://github.com/TrungVu2331/MongoDB#readme"
 }

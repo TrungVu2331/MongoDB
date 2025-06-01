@@ -34,12 +34,17 @@ db.getCollection("Customer_in4").insertMany([
     {_id: 7, "name": "Trinh Van E", "contact": "0154789620", "email":"abed@gmail.com"},
     {_id: 8, "name": "Duong Van B", "contact": "05689742648", "email":"abweq@gmail.com"},
     {_id: 9, "name": "Nguyen Thi Nhat A", "contact": "0236548513", "email":"abre@gmail.com"},
-    {_id: 10, "name": "Nguyen Vu Van F", "contact": "0245687940", "email":"abdsa@gmail.com"}
+    {_id: 10, "name": "Nguyen Vu Van F", "contact": "0245687940", "email":"absdasfs@gmail.com"},
+    {_id: 11, "name": "Nguyen Vu E", "contact": "0126548123", "email":"abffds@gmail.com"},
+    {_id: 12, "name": "Tran Van D", "contact": "0456789101", "email":"abdasdasd@gmail.com"}
 ]);
 
 use("Dat_Phong");
 db.getCollection("ThongTin").insertMany([
     {_id: ObjectId(),"roomId": 102,"customerId": 7,"checkIn": ISODate("2025-05-20T14:30:00.000+00:00"),"checkOut": ISODate("2025-06-20T10:50:00.000+00:00"),"status": "confirmed"},
+    {_id: ObjectId(),"roomId": 101,"customerId": 9,"checkIn": ISODate("2025-01-20T14:30:00.000+00:00"),"checkOut": ISODate("2025-03-20T10:50:00.000+00:00"),"status": "confirmed"},
+    {_id: ObjectId(),"roomId": 104,"customerId": 11,"checkIn": ISODate("2025-02-20T14:30:00.000+00:00"),"checkOut": ISODate("2025-04-20T10:50:00.000+00:00"),"status": "confirmed"},
+    {_id: ObjectId(),"roomId": 202,"customerId": 12,"checkIn": ISODate("2025-12-10T14:30:00.000+00:00"),"checkOut": ISODate("2025-12-20T10:50:00.000+00:00"),"status": "confirmed"},
     {_id: ObjectId(),"roomId": 301,"customerId": 8,"checkIn": ISODate("2025-04-20T14:50:00.000+00:00"),"checkOut": ISODate("2025-05-01T16:10:00.000+00:00"),"status": "confirmed"},
     {_id: ObjectId(),"roomId": 203,"customerId": 10,"checkIn": ISODate("2025-03-20T10:15:00.000+00:00"),"checkOut": ISODate("2025-03-29T17:00:00.000+00:00"),"status": "confirmed"},
 ]);
