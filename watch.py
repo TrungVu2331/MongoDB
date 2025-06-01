@@ -2,19 +2,29 @@ import os
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
 from dotenv import load_dotenv
+import threading
 
-load_dotenv()
-uri = os.getenv("MONGO_URI")
+client = MongoClient("mongodb://localhost:27017/?replicaSet=rs0")
+targets = [
+    ("Phong", "PhongTrong"),
+    ("admin", "DoanhThu")
+]
 
-client = MongoClient(uri)
-db = client.test
-collection = db.my_collection
+def watch_collection(db_name, coll_name):
+    collection = client[db_name][coll_name]
+    print(f"🔍 Đang theo dõi {db_name}.{coll_name}")
+    try:
+        with collection.watch() as stream:
+            for change in stream:
+                print(f"🟡 [{db_name}.{coll_name}] Thay đổi phát hiện:", change)
+    except PyMongoError as e:
+        print(f"❌ Lỗi khi theo dõi {db_name}.{coll_name}:", e)
 
-print("🔍 Đang theo dõi thay đổi trong collection 'my_collection'...")
+# Tạo luồng riêng để theo dõi từng collection
+for db, coll in targets:
+    t = threading.Thread(target=watch_collection, args=(db, coll))
+    t.daemon = True
+    t.start()
 
-try:
-    with collection.watch() as stream:
-        for change in stream:
-            print("🟡 Thay đổi phát hiện:", change)
-except PyMongoError as e:
-    print("❌ Lỗi khi theo dõi Change Stream:", e)
+# Giữ chương trình chạy
+input("Nhấn Enter để thoát...\n")
