@@ -6,8 +6,11 @@ import threading
 
 client = MongoClient("mongodb://localhost:27017/?replicaSet=rs0")
 targets = [
+    ("Phong", "Phong"),
     ("Phong", "PhongTrong"),
-    ("admin", "DoanhThu")
+    ("KinhDoanh", "DoanhThu"),
+    ("Khach","Customer_in4"),
+    ("NhanVien", "persons"),
 ]
 
 def watch_collection(db_name, coll_name):

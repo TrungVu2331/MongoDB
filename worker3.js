@@ -11,7 +11,7 @@ await client.connect();
 
 const dbPhong = client.db('Phong');
 const dbDatPhong = client.db('Dat_Phong');
-const dbAdmin = client.db('admin');
+const dbKinhDoanh = client.db('KinhDoanh');
 
 app.post('/tinh-doanh-thu', async (req, res) => {
   const months = req.body.months; // [7, 8, 9]
@@ -47,7 +47,7 @@ app.post('/tinh-doanh-thu', async (req, res) => {
   }
 
   for (const r of result) {
-    await dbAdmin.collection('DoanhThu').updateOne(
+    await dbKinhDoanh.collection('DoanhThu').updateOne(
       { month: r.month },
       { $set: { month: r.month, total: r.total } },
       { upsert: true }
